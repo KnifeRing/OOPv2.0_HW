@@ -1,7 +1,7 @@
 package ru.netology.statistic;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class RadioTest {
 
@@ -30,6 +30,7 @@ public class RadioTest {
         int actual = radio.getCurrentStation();
         Assertions.assertEquals(expect, actual);
     }
+
     @Test
     void setOverMaxNumberRadio() {
         Radio radio = new Radio();
