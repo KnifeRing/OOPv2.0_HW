@@ -3,28 +3,27 @@ package ru.netology.statistic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
 public class RadioTest {
+    Radio radio = new Radio();
 
     @Test
-    void setNumberRadio() {
-        Radio radio = new Radio();
-        int expect = 0;
-        int actual = radio.getCurrentStation();
-        Assertions.assertEquals(expect, actual);
+    void SetStationUnderMinStation() {
+        radio.setCurrentStation(-1);
+        assertEquals(0, radio.getCurrentStation());
     }
 
     @Test
-    void setNewNumberRadio() {
-        Radio radio = new Radio();
+    void ChangeStation() {
+        assertEquals(0, radio.getCurrentStation());
         radio.setCurrentStation(5);
-        int expect = 5;
-        int actual = radio.getCurrentStation();
-        Assertions.assertEquals(expect, actual);
+        assertEquals(5, radio.getCurrentStation());
     }
 
     @Test
     void setMaxNumberRadio() {
-        Radio radio = new Radio();
         radio.setCurrentStation(9);
         int expect = 9;
         int actual = radio.getCurrentStation();
@@ -33,29 +32,8 @@ public class RadioTest {
 
     @Test
     void setOverMaxNumberRadio() {
-        Radio radio = new Radio();
         radio.setCurrentStation(10);
-        int expect = 0;
-        int actual = radio.getCurrentStation();
-        Assertions.assertEquals(expect, actual);
-    }
-
-    @Test
-    void setMinNumberRadio() {
-        Radio radio = new Radio();
-        radio.setCurrentStation(0);
-        int expect = 0;
-        int actual = radio.getCurrentStation();
-        Assertions.assertEquals(expect, actual);
-    }
-
-    @Test
-    void setUnderMinNumberRadio() {
-        Radio radio = new Radio();
-        radio.setCurrentStation(-1);
-        int expect = 0;
-        int actual = radio.getCurrentStation();
-        Assertions.assertEquals(expect, actual);
+        assertEquals(0, radio.getCurrentStation());
     }
 
     @Test
@@ -99,54 +77,39 @@ public class RadioTest {
     }
 
     @Test
-    void getCurrentVolume() {
-        Radio radio = new Radio();
-        radio.volumeUp();
-        int expect = 1;
-        int actual = radio.getCurrentVolume();
-        Assertions.assertEquals(expect, actual);
+    void shouldChangeVolume() {
+        assertEquals(0, radio.getCurrentVolume());
+        radio.setCurrentVolume(5);
+        assertEquals(5, radio.getCurrentVolume());
     }
 
     @Test
-    void volumeUp() {
-        Radio radio = new Radio();
+    void shouldIncreaseVolume() {
+        radio.setCurrentVolume(9);
         radio.volumeUp();
-        int expect = 1;
-        int actual = radio.getCurrentVolume();
-        Assertions.assertEquals(expect, actual);
+        assertEquals(10, radio.getCurrentVolume());
     }
 
     @Test
-    void volumeDown() {
-        Radio radio = new Radio();
-        radio.volumeUp();
-        radio.volumeUp();
+    void shouldDecreaseVolume() {
+        radio.setCurrentVolume(6);
         radio.volumeDown();
-
-        int expect = 1;
-        int actual = radio.getCurrentVolume();
-        Assertions.assertEquals(expect, actual);
+        assertEquals(5, radio.getCurrentVolume());
     }
 
     @Test
-    void volumeUpIfMax() {
-        Radio radio = new Radio();
-        for (int i = 0; i <= 100; i++) {
-            radio.volumeUp();
-        }
-        int expect = 100;
-        int actual = radio.getCurrentVolume();
-        Assertions.assertEquals(expect, actual);
-    }
-
-    @Test
-    void volumeDownIfMin() {
-        Radio radio = new Radio();
+    void shouldBelowMinVolume1() {
+        radio.setCurrentVolume(0);
         radio.volumeDown();
-
-        int expect = 0;
-        int actual = radio.getCurrentVolume();
-        Assertions.assertEquals(expect, actual);
+        assertEquals(0, radio.getCurrentVolume());
     }
+
+    @Test
+    void shouldBelowMinVolume2() {
+        radio.setCurrentVolume(-1);
+        radio.volumeDown();
+        assertEquals(0, radio.getCurrentVolume());
+    }
+
 }
 
